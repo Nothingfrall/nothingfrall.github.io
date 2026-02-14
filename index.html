@@ -465,14 +465,19 @@
     document.getElementById('footer-year').textContent = `Portfolio ${new Date().getFullYear()}`;
 
     // Loading Screen Logic
-    window.addEventListener('load', () => {
+    function hideLoader() {
         const loader = document.getElementById('loading-screen');
-        setTimeout(() => {
+        if (loader) {
             loader.classList.add('opacity-0', 'pointer-events-none');
-            setTimeout(() => {
-                loader.remove();
-            }, 700);
-        }, 1000);
+            setTimeout(() => loader.remove(), 700);
+        }
+    }
+
+    window.addEventListener('load', () => {
+        setTimeout(hideLoader, 1000);
     });
+
+    // Fallback: Force hide after 3 seconds (prevents stuck loading if assets fail)
+    setTimeout(hideLoader, 3000);
 </script>
 </body></html>
