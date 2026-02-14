@@ -59,8 +59,17 @@
     </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white min-h-screen">
+<!-- Loading Screen -->
+<div id="loading-screen" class="fixed inset-0 z-[100] bg-background-light dark:bg-background-dark flex flex-col items-center justify-center gap-6 transition-opacity duration-700">
+<img alt="Loading" class="size-20 rounded-2xl shadow-2xl shadow-primary/20 animate-pulse" src="images/icon.gif"/>
+<div class="flex gap-2">
+<div class="size-3 bg-primary rounded-full animate-bounce" style="animation-delay: 0ms"></div>
+<div class="size-3 bg-primary rounded-full animate-bounce" style="animation-delay: 150ms"></div>
+<div class="size-3 bg-primary rounded-full animate-bounce" style="animation-delay: 300ms"></div>
+</div>
+</div>
 <!-- Top Navigation Bar -->
-<header class="sticky top-0 z-50 w-full border-b border-white/5 bg-background-dark/80 backdrop-blur-md">
+<header class="sticky top-0 z-50 w-full border-b border-white/10 bg-background-dark/50 backdrop-blur-xl shadow-sm">
 <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
 <div class="flex items-center gap-2">
 <img alt="Logo" class="size-8 rounded-lg" src="images/icon.gif"/>
@@ -387,11 +396,11 @@
 <footer class="border-t border-white/5 py-12">
 <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
 <div class="flex items-center gap-2 opacity-50">
-<div class="size-6 bg-primary rounded"></div>
-<span class="text-sm font-bold tracking-tight">Portfolio 2024</span>
+<img alt="Logo" class="size-6 rounded" src="images/icon.gif"/>
+<span id="footer-year" class="text-sm font-bold tracking-tight">Portfolio 2024</span>
 </div>
 <div class="text-slate-500 text-sm">
-                © Designed with purpose in San Francisco
+                © Designed By iPowfu. All rights reserved.
             </div>
 <div class="flex gap-6">
 <a class="text-slate-400 hover:text-primary transition-colors text-sm" href="#">Twitter</a>
@@ -451,5 +460,19 @@
 
     setupSlider('skills-container', 'skills-prev', 'skills-next');
     setupSlider('work-container', 'work-prev', 'work-next');
+
+    // Auto Update Year
+    document.getElementById('footer-year').textContent = `Portfolio ${new Date().getFullYear()}`;
+
+    // Loading Screen Logic
+    window.addEventListener('load', () => {
+        const loader = document.getElementById('loading-screen');
+        setTimeout(() => {
+            loader.classList.add('opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+                loader.remove();
+            }, 700);
+        }, 1000);
+    });
 </script>
 </body></html>
