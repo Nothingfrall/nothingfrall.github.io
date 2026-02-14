@@ -67,9 +67,6 @@
 <span class="text-xl font-bold tracking-tight">iPowfu</span>
 <span class="material-symbols-outlined text-blue-500 text-xl" style="font-variation-settings: 'FILL' 1;">verified</span>
 </div>
-<button id="mobile-menu-btn" class="md:hidden p-2 text-white hover:bg-white/10 rounded-lg transition-colors">
-<span class="material-symbols-outlined">menu</span>
-</button>
 <nav class="hidden md:flex items-center gap-8">
 <a class="text-sm font-medium hover:text-primary transition-colors" href="#about">About</a>
 <a class="text-sm font-medium hover:text-primary transition-colors" href="#skills">Skills</a>
@@ -77,23 +74,10 @@
 <a class="text-sm font-medium hover:text-primary transition-colors" href="#contact">Contact</a>
 </nav>
 <div class="flex items-center gap-4">
-<a href="https://github.com/NothingFrAll" target="_blank" class="hidden md:block bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-lg text-sm font-semibold transition-all">
+<a href="https://github.com/NothingFrAll" target="_blank" class="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-lg text-sm font-semibold transition-all">
                     GitHub
                 </a>
 </div>
-</div>
-<!-- Mobile Menu Overlay -->
-<div id="mobile-menu" class="fixed inset-0 z-[60] bg-slate-900/95 backdrop-blur-xl transform translate-x-full transition-transform duration-300 md:hidden flex flex-col items-center justify-center gap-8">
-<button id="close-menu-btn" class="absolute top-6 right-6 text-white p-2 hover:bg-white/10 rounded-lg transition-colors">
-<span class="material-symbols-outlined">close</span>
-</button>
-<a class="text-2xl font-medium hover:text-primary transition-colors" href="#about">About</a>
-<a class="text-2xl font-medium hover:text-primary transition-colors" href="#skills">Skills</a>
-<a class="text-2xl font-medium hover:text-primary transition-colors" href="#work">Work</a>
-<a class="text-2xl font-medium hover:text-primary transition-colors" href="#contact">Contact</a>
-<a class="text-2xl font-medium hover:text-primary transition-colors" href="https://github.com/NothingFrAll" target="_blank">
-    GitHub
-</a>
 </div>
 </header>
 <main class="max-w-6xl mx-auto px-6 py-16 md:py-24 space-y-32">
@@ -467,20 +451,5 @@
 
     setupSlider('skills-container', 'skills-prev', 'skills-next');
     setupSlider('work-container', 'work-prev', 'work-next');
-
-    // Mobile Menu Logic
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const closeMenuBtn = document.getElementById('close-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const menuLinks = mobileMenu.querySelectorAll('a');
-
-    function toggleMenu() {
-        mobileMenu.classList.toggle('translate-x-full');
-        document.body.classList.toggle('overflow-hidden');
-    }
-
-    mobileMenuBtn.addEventListener('click', toggleMenu);
-    closeMenuBtn.addEventListener('click', toggleMenu);
-    menuLinks.forEach(link => link.addEventListener('click', toggleMenu));
 </script>
 </body></html>
