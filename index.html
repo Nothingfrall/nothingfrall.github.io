@@ -35,6 +35,9 @@
         body {
             font-family: 'Inter', sans-serif;
         }
+        html {
+            scroll-behavior: smooth;
+        }
         .skill-card-glow:hover {
             box-shadow: 0 0 20px rgba(168, 85, 247, 0.15);
         }
@@ -42,7 +45,8 @@
         .reveal {
             opacity: 0;
             transform: translateY(30px);
-            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
+            transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+            will-change: opacity, transform;
         }
         .reveal.active {
             opacity: 1;
@@ -348,7 +352,7 @@
 <!-- CTA Section -->
 <section class="relative rounded-3xl overflow-hidden bg-primary/10 border border-primary/20 p-12 text-center reveal" id="contact">
 <div class="absolute inset-0">
-<img id="contact-banner" alt="Banner" class="w-full h-full object-cover opacity-20 scale-125" src="images/banner.jpg"/>
+<img id="contact-banner" alt="Banner" class="w-full h-full object-cover opacity-20 scale-125 will-change-transform" src="images/banner.jpg"/>
 </div>
 <div class="absolute -top-24 -left-24 size-64 bg-primary/20 rounded-full blur-[100px]"></div>
 <div class="absolute -bottom-24 -right-24 size-64 bg-primary/20 rounded-full blur-[100px]"></div>
@@ -433,16 +437,25 @@
     // Parallax Effect
     const contactSection = document.getElementById('contact');
     const contactBanner = document.getElementById('contact-banner');
+    let isTicking = false;
 
     window.addEventListener('scroll', () => {
-        if (!contactSection || !contactBanner) return;
-        const rect = contactSection.getBoundingClientRect();
-        if (rect.top < window.innerHeight && rect.bottom > 0) {
-            contactBanner.style.transform = `translateY(${(window.innerHeight - rect.top) * 0.08 - 50}px) scale(1.25)`;
-            
-            // Blur Effect
-            const blurAmount = Math.max(0, (rect.top / window.innerHeight) * 10);
-            contactBanner.style.filter = `blur(${blurAmount}px)`;
+        if (!isTicking) {
+            window.requestAnimationFrame(() => {
+                if (contactSection && contactBanner) {
+                    const rect = contactSection.getBoundingClientRect();
+                    if (rect.top < window.innerHeight && rect.bottom > 0) {
+                        // Use translate3d for hardware acceleration
+                        contactBanner.style.transform = `translate3d(0, ${(window.innerHeight - rect.top) * 0.08 - 50}px, 0) scale(1.25)`;
+                        
+                        // Blur Effect
+                        const blurAmount = Math.max(0, (rect.top / window.innerHeight) * 10);
+                        contactBanner.style.filter = `blur(${blurAmount}px)`;
+                    }
+                }
+                isTicking = false;
+            });
+            isTicking = true;
         }
     });
 
