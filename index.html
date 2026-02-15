@@ -244,6 +244,16 @@
             );
             background-size: 55px 55px;
         }
+        .light-grid-pattern {
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(to right, #e2e8f0 1px, transparent 1px),
+                linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);
+            background-size: 20px 30px;
+            mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%);
+            -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%);
+        }
         /* From Uiverse.io by Tsiangana */ 
         .card {
           width: 340px;
@@ -459,6 +469,9 @@
 <!-- Background Grid -->
 <div class="fixed inset-0 z-0 pointer-events-none hidden dark:block [mask-image:linear-gradient(to_bottom,white_10%,transparent_90%)]">
     <div class="grid-pattern absolute inset-0"></div>
+</div>
+<div class="fixed inset-0 z-0 pointer-events-none block dark:hidden">
+    <div class="light-grid-pattern absolute inset-0"></div>
 </div>
 <!-- Top Navigation Bar -->
 <div id="navbar-wrapper" class="fixed top-0 inset-x-0 z-50 flex justify-center pointer-events-none">
