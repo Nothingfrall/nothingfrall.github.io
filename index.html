@@ -473,6 +473,152 @@
           80% { top: 70px; left: 60px; }
           100% { top: 90px; left: 90px; }
         }
+
+        /* Playlist Card Styles */
+        .card .playlist {
+          width: 190px;
+          height: 254px;
+          z-index: 10;
+          position: absolute;
+          background: rgba(255, 255, 255, 0.6);
+          box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+          backdrop-filter: blur(8.5px);
+          -webkit-backdrop-filter: blur(8.5px);
+          border-radius: 10px;
+          border: 1px solid rgba(255, 255, 255, 0.4);
+          transition: all 0.3s;
+          opacity: 0;
+          visibility: hidden;
+          transform: translateX(20px);
+          display: flex;
+          flex-direction: column;
+        }
+
+        .card.show-playlist .one {
+            transform: translateX(-20px);
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .card.show-playlist .playlist {
+            transform: translateX(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        html.dark .card .playlist {
+          background: rgba(255, 255, 255, 0.05);
+          box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card .playlist .header {
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        html.dark .card .playlist .header {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .card .playlist .header svg {
+            fill: rgba(0,0,0,0.7);
+            cursor: pointer;
+        }
+        html.dark .card .playlist .header svg {
+            fill: rgba(255,255,255,0.8);
+        }
+
+        .card .playlist .header span {
+            margin-left: 10px;
+            font-size: 12px;
+            font-weight: 500;
+            font-family: Roboto, sans-serif;
+            color: rgba(0,0,0,0.8);
+        }
+        html.dark .card .playlist .header span {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .card .playlist .list {
+            padding: 10px;
+            overflow-y: auto;
+            flex: 1;
+            scroll-behavior: smooth;
+        }
+        .card .playlist .list::-webkit-scrollbar {
+            width: 5px;
+        }
+        .card .playlist .list::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .card .playlist .list::-webkit-scrollbar-thumb {
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+        }
+        .card .playlist .list::-webkit-scrollbar-thumb:hover {
+            background: #a855f7;
+        }
+        html.dark .card .playlist .list::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.2);
+        }
+        html.dark .card .playlist .list::-webkit-scrollbar-thumb:hover {
+            background: #a855f7;
+        }
+
+        .card .playlist .list-item {
+            display: flex;
+            align-items: center;
+            padding: 5px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .card .playlist .list-item:hover {
+            background: rgba(0,0,0,0.05);
+        }
+        html.dark .card .playlist .list-item:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .card .playlist .list-item .cover {
+            width: 30px;
+            height: 30px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        html.dark .card .playlist .list-item .cover {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .card .playlist .list-item .info {
+            margin-left: 8px;
+        }
+        
+        .card .playlist .list-item .title {
+            display: block;
+            font-size: 10px;
+            font-weight: 500;
+            font-family: Roboto, sans-serif;
+            color: rgba(0,0,0,0.8);
+        }
+        html.dark .card .playlist .list-item .title {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .card .playlist .list-item .artist {
+            display: block;
+            font-size: 8px;
+            font-family: Roboto, sans-serif;
+            color: rgba(0,0,0,0.5);
+        }
+        html.dark .card .playlist .list-item .artist {
+            color: rgba(255,255,255,0.6);
+        }
     </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white min-h-screen">
@@ -637,24 +783,15 @@
         ></path>
       </svg>
       <svg
+        id="repeat-btn"
         viewBox="0 0 16 16"
-        class="color1 bi bi-music-note-list"
+        class="color1 bi bi-repeat"
         fill="currentColor"
-        height="14"
-        width="14"
+        height="16"
+        width="16"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path
-          d="M12 13c0 1.105-1.12 2-2.5 2S7 14.105 7 13s1.12-2 2.5-2 2.5.895 2.5 2z"
-        ></path>
-        <path d="M12 3v10h-1V3h1z" fill-rule="evenodd"></path>
-        <path
-          d="M11 2.82a1 1 0 0 1 .804-.98l3-.6A1 1 0 0 1 16 2.22V4l-5 1V2.82z"
-        ></path>
-        <path
-          d="M0 11.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 .5 7H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 .5 3H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5z"
-          fill-rule="evenodd"
-        ></path>
+        <path d="M11 5.466V4H5a4 4 0 0 0-3.584 5.777.5.5 0 1 1-.896.446A5 5 0 0 1 5 3h6V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192Zm3.81.086a.5.5 0 0 1 .67.225A5 5 0 0 1 11 13H5v1.466a.25.25 0 0 1-.41.192l-2.36-1.966a.25.25 0 0 1 0-.384l2.36-1.966a.25.25 0 0 1 .41.192V12h6a4 4 0 0 0 3.585-5.777.5.5 0 0 1 .225-.67Z"/>
       </svg>
       <svg
         viewBox="0 0 16 16"
@@ -669,6 +806,7 @@
         ></path>
       </svg>
       <svg
+        id="to-playlist"
         viewBox="0 0 16 16"
         class="color1 bi bi-arrow-right"
         fill="currentColor"
@@ -681,6 +819,17 @@
           fill-rule="evenodd"
         ></path>
       </svg>
+    </div>
+  </div>
+  <div class="playlist">
+    <div class="header">
+      <svg id="back-to-music" viewBox="0 0 16 16" height="16" width="16" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+      </svg>
+      <span>Playlist</span>
+    </div>
+    <div class="list">
+      <!-- Playlist items will be generated by JavaScript -->
     </div>
   </div>
   <div class="two"></div>
@@ -1074,22 +1223,6 @@
     // Auto Update Year
     document.getElementById('footer-year').textContent = `Portfolio ${new Date().getFullYear()}`;
 
-    // Loading Screen Logic
-    function hideLoader() {
-        const loader = document.getElementById('loading-screen');
-        if (loader) {
-            loader.classList.add('opacity-0', 'pointer-events-none');
-            setTimeout(() => loader.remove(), 700);
-        }
-    }
-
-    window.addEventListener('load', () => {
-        setTimeout(hideLoader, 1000);
-    });
-
-    // Fallback: Force hide after 3 seconds (prevents stuck loading if assets fail)
-    setTimeout(hideLoader, 3000);
-
     // Theme Toggle Logic
     const themeToggleBtn = document.getElementById('theme-toggle');
     const htmlElement = document.documentElement;
@@ -1200,5 +1333,242 @@
             playBtn.querySelector('path').setAttribute('d', playIconPath);
         }
     });
+
+    // Playlist Navigation
+    const card = document.querySelector('.card');
+    const toPlaylistBtn = document.getElementById('to-playlist');
+    const backToMusicBtn = document.getElementById('back-to-music');
+
+    toPlaylistBtn.addEventListener('click', () => {
+        card.classList.add('show-playlist');
+    });
+
+    backToMusicBtn.addEventListener('click', () => {
+        card.classList.remove('show-playlist');
+    });
+
+    // Dynamic Playlist Logic
+    const songTitle = document.querySelector('.name');
+    const songArtist = document.querySelector('.name1');
+    const playlistContainer = document.querySelector('.playlist .list');
+    
+    // Select Prev/Next buttons
+    const prevBtn = document.querySelector('.card .one .bar svg:first-child');
+    const nextBtn = document.querySelector('.card .one .bar svg:last-child');
+    const repeatBtn = document.getElementById('repeat-btn');
+
+    let repeatState = 'off'; // off, all, one
+    let currentSongIndex = 0;
+
+    // DAFTAR LAGU: Pastikan nama file sesuai dengan yang ada di folder music
+    const songs = [
+        { title: "who do you cry for?", artist: "Shiloh Dynasty", src: "music/music1.mp3" },
+        { title: "Ex-Bitch", artist: "XXXTENTACION", src: "music/music2.mp3" },
+        { title: "Would you be my baby", artist: "Shiloh Dynasty", src: "music/music3.mp3" },
+        { title: "You and i", artist: "Diego Gonzalez", src: "music/music4.mp3" },
+    ];
+
+    function loadSong(song) {
+        songTitle.innerHTML = `<div></div>${song.title}`;
+        songArtist.innerHTML = `<div></div>${song.artist}`;
+        audio.src = song.src;
+    }
+
+    function playSong() {
+        audio.play().then(() => {
+            playBtn.querySelector('path').setAttribute('d', pauseIconPath);
+        }).catch(error => {
+            console.error(error);
+        });
+    }
+
+    function prevSong() {
+        currentSongIndex--;
+        if (currentSongIndex < 0) {
+            currentSongIndex = songs.length - 1;
+        }
+        loadSong(songs[currentSongIndex]);
+        playSong();
+    }
+
+    function nextSong() {
+        currentSongIndex++;
+        if (currentSongIndex > songs.length - 1) {
+            currentSongIndex = 0;
+        }
+        loadSong(songs[currentSongIndex]);
+        playSong();
+    }
+
+    // Event Listeners for Prev/Next
+    prevBtn.addEventListener('click', prevSong);
+    nextBtn.addEventListener('click', nextSong);
+
+    // Repeat Button Logic
+    repeatBtn.addEventListener('click', () => {
+        if (repeatState === 'off') {
+            repeatState = 'all';
+            repeatBtn.style.color = '#a855f7'; // Primary color
+        } else if (repeatState === 'all') {
+            repeatState = 'one';
+            // Change icon to Repeat One
+            repeatBtn.innerHTML = `<path d="M11 5.466V4H5a4 4 0 0 0-3.584 5.777.5.5 0 1 1-.896.446A5 5 0 0 1 5 3h6V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192Zm3.81.086a.5.5 0 0 1 .67.225A5 5 0 0 1 11 13H5v1.466a.25.25 0 0 1-.41.192l-2.36-1.966a.25.25 0 0 1 0-.384l2.36-1.966a.25.25 0 0 1 .41.192V12h6a4 4 0 0 0 3.585-5.777.5.5 0 0 1 .225-.67Z"/><path d="M6.5 6.5A.5.5 0 0 1 7 6h1.5a.5.5 0 0 1 0 1H7.5v1.466a.25.25 0 0 1-.41.192l-2.36-1.966a.25.25 0 0 1 0-.384l2.36-1.966a.25.25 0 0 1 .41.192V6.5Z"/>`;
+        } else {
+            repeatState = 'off';
+            repeatBtn.style.color = ''; // Reset color
+            // Reset icon to normal Repeat
+            repeatBtn.innerHTML = `<path d="M11 5.466V4H5a4 4 0 0 0-3.584 5.777.5.5 0 1 1-.896.446A5 5 0 0 1 5 3h6V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192Zm3.81.086a.5.5 0 0 1 .67.225A5 5 0 0 1 11 13H5v1.466a.25.25 0 0 1-.41.192l-2.36-1.966a.25.25 0 0 1 0-.384l2.36-1.966a.25.25 0 0 1 .41.192V12h6a4 4 0 0 0 3.585-5.777.5.5 0 0 1 .225-.67Z"/>`;
+        }
+    });
+    
+    // Handle Song End based on Repeat State
+    audio.addEventListener('ended', () => {
+        if (repeatState === 'one') {
+            playSong(); // Replay current song
+        } else if (repeatState === 'all') {
+            nextSong(); // Loop to next (nextSong handles looping back to 0)
+        } else {
+            // Repeat Off: Play next unless it's the last song
+            if (currentSongIndex < songs.length - 1) {
+                nextSong();
+            } else {
+                // End of playlist, stop playing (reset icon)
+                playBtn.querySelector('path').setAttribute('d', playIconPath);
+            }
+        }
+    });
+
+    // Set tampilan awal sesuai lagu pertama
+    if (songs.length > 0) {
+        loadSong(songs[0]);
+    }
+
+    songs.forEach((song, index) => {
+        const item = document.createElement('div');
+        item.className = 'list-item';
+        item.innerHTML = `
+            <div class="cover">
+                <span class="material-symbols-outlined" style="font-size: 16px; color: inherit;">music_note</span>
+            </div>
+            <div class="info">
+                <span class="title">${song.title}</span>
+                <span class="artist">${song.artist}</span>
+            </div>
+        `;
+        
+        item.addEventListener('click', () => {
+            currentSongIndex = index;
+            loadSong(song);
+            playSong();
+        });
+        playlistContainer.appendChild(item);
+    });
+</script>
+<script>
+    // Loading Screen Logic - Isolated to ensure execution
+    (function() {
+        function hideLoader() {
+            const loader = document.getElementById('loading-screen');
+            if (loader) {
+                loader.classList.add('opacity-0', 'pointer-events-none');
+                setTimeout(() => loader.remove(), 700);
+            }
+        }
+        window.addEventListener('load', () => setTimeout(hideLoader, 1000));
+        setTimeout(hideLoader, 3000); // Fallback
+    })();
+</script>
+</body></html>
+</script>
+</body></html>
+        playlistContainer.appendChild(item);
+    });
+</script>
+</body></html>
+</script>
+</body></html>
+    // Set tampilan awal sesuai lagu pertama
+    if (songs.length > 0) {
+        loadSong(songs[0]);
+    }
+
+    songs.forEach((song, index) => {
+        const item = document.createElement('div');
+        item.className = 'list-item';
+        item.innerHTML = `
+            <div class="cover">
+                <span class="material-symbols-outlined" style="font-size: 16px; color: inherit;">music_note</span>
+            </div>
+            <div class="info">
+                <span class="title">${song.title}</span>
+                <span class="artist">${song.artist}</span>
+            </div>
+        `;
+        
+        item.addEventListener('click', () => {
+            currentSongIndex = index;
+            loadSong(song);
+            playSong();
+        });
+        playlistContainer.appendChild(item);
+    });
+</script>
+</body></html>
+</script>
+</body></html>
+        playlistContainer.appendChild(item);
+    });
+</script>
+</body></html>
+</script>
+</body></html>
+    // Set tampilan awal sesuai lagu pertama
+    if (songs.length > 0) {
+        songTitle.innerHTML = `<div></div>${songs[0].title}`;
+        songArtist.innerHTML = `<div></div>${songs[0].artist}`;
+        loadSong(songs[0]);
+    }
+
+    songs.forEach(song => {
+    songs.forEach((song, index) => {
+        const item = document.createElement('div');
+        item.className = 'list-item';
+        item.innerHTML = `
+            <div class="cover">
+                <span class="material-symbols-outlined" style="font-size: 16px; color: inherit;">music_note</span>
+            </div>
+            <div class="info">
+                <span class="title">${song.title}</span>
+                <span class="artist">${song.artist}</span>
+            </div>
+        `;
+        
+        item.addEventListener('click', () => {
+            if (!audio.src.includes(song.src)) {
+                audio.src = song.src;
+                songTitle.innerHTML = `<div></div>${song.title}`;
+                songArtist.innerHTML = `<div></div>${song.artist}`;
+            }
+            
+            audio.play().then(() => {
+                playBtn.querySelector('path').setAttribute('d', pauseIconPath);
+            }).catch(error => {
+                console.error(error);
+                alert("Gagal memutar: " + song.src + "\nPastikan file ada di folder music!");
+            });
+            currentSongIndex = index;
+            loadSong(song);
+            playSong();
+        });
+        playlistContainer.appendChild(item);
+    });
+</script>
+</body></html>
+</script>
+</body></html>
+        playlistContainer.appendChild(item);
+    });
+</script>
+</body></html>
 </script>
 </body></html>
