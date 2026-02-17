@@ -1479,38 +1479,3 @@
     })();
 </script>
 </body></html>
-</script>
-</body></html>
-        playlistContainer.appendChild(item);
-    });
-</script>
-</body></html>
-</script>
-</body></html>
-    // Set tampilan awal sesuai lagu pertama
-    if (songs.length > 0) {
-        loadSong(songs[0]);
-    }
-
-    songs.forEach((song, index) => {
-        const item = document.createElement('div');
-        item.className = 'list-item';
-        item.innerHTML = `
-            <div class="cover">
-                <span class="material-symbols-outlined" style="font-size: 16px; color: inherit;">music_note</span>
-            </div>
-            <div class="info">
-                <span class="title">${song.title}</span>
-                <span class="artist">${song.artist}</span>
-            </div>
-        `;
-        
-        item.addEventListener('click', () => {
-            currentSongIndex = index;
-            loadSong(song);
-            playSong();
-        });
-        playlistContainer.appendChild(item);
-    });
-</script>
-</body></html>
